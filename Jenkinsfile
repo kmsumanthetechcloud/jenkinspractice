@@ -1,9 +1,16 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker' // Jenkins ka Docker Cloud use karega
+    }
     stages {
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
-                git 'https://github.com/yourusername/python-jenkins-test.git'
+                git 'https://github.com/kmsumanthetechcloud/jenkinspractice.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('Run Script') {
@@ -13,7 +20,6 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh 'pip install pytest'
                 sh 'pytest test_app.py'
             }
         }
