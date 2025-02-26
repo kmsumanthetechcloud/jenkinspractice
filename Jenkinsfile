@@ -1,19 +1,19 @@
 pipeline {
-    agent { label 'docker' } 
+    agent { label 'docker' }  // Runs on Docker Cloud agent
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/kmsumanthetechcloud/jenkinspractice.git'
+                git 'https://github.com/kmsumanthetechcloud/jenkinspractice.git'  // Change with your repo
             }
         }
-        stage('Install Dependencies') {
+        stage('Build Docker Image') {
             steps {
-                sh 'pip install -r requirements.txt'
+                sh 'docker build -t my-flask-app .'
             }
         }
-        stage('Run Script') {
+        stage('Run Container') {
             steps {
-                sh 'python app.py'
+                sh 'docker run -d -p 5000:5000 my-flask-app'
             }
         }
     }
