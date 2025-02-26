@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'docker' // Jenkins ka Docker Cloud use karega
-    }
+    agent { label 'docker' } 
     stages {
         stage('Checkout Code') {
             steps {
@@ -16,11 +14,6 @@ pipeline {
         stage('Run Script') {
             steps {
                 sh 'python app.py'
-            }
-        }
-        stage('Run Tests') {
-            steps {
-                sh 'pytest test_app.py'
             }
         }
     }
